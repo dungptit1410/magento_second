@@ -1,0 +1,38 @@
+<table class="table table-bordered table-striped table-hover table-reponsive scroll">
+    <thead>
+    	<a href="<?php echo $block->getBaseUrl(); ?>blog/index/create" class="btn btn-primary btn-xs pull-right">Create New Post</a>
+	  	<tr>
+		    <th>Id</th>
+		    <th>Name</th>
+		    <th>Url Key</th>
+		    <th>Image</th>
+		    <th>Content</th>
+		    <th>Status</th>
+		    <th>Creared At</th>
+		    <th>Updated At</th>
+		    <th></th>
+		    <th></th>
+	    </tr>
+    </thead>
+    <?php
+    //$link = ' <a href="'. $block->getBaseUrl().'blog/index/edit"></a>';
+    //echo $link;
+        $posts = $block->getPosts();
+        foreach ($posts as $post) {
+    ?>
+    	<tr style="border: 1px solid #dddddd; text-align: left; padding: 8px">
+            <td><?php echo $post->getId(); ?></td>
+            <td><?php echo $post->getName(); ?></td>
+            <td><?php echo $post->getUrlKey(); ?></td>
+            <td><?php echo $post->getImage(); ?></td>
+            <td><?php echo $post->getContent(); ?></td>
+            <td><?php echo $post->getStatus(); ?></td>
+            <td><?php echo $post->getCreatedAt();?></td>
+            <td><?php echo $post->getUpdatedAt(); ?></td>
+            <td><a href="<?php echo $block->getUrl('blog/index/edit').'?post_id='.$post->getId(); ?>">Edit</a></td>
+            <td><a href="<?php echo $block->getUrl('blog/index/delete').'?post_id='.$post->getId(); ?>">Delete</a></td>
+        </tr>
+ <?php    	
+    }
+    ?>
+</table>

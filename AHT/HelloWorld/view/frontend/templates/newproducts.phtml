@@ -1,0 +1,10 @@
+<?php var_dump($block->getProducts());die(); ?>
+<h2>New products</h2>
+<ul>
+    <?php foreach ($block->getProducts() as $product): ?>
+        <li><?php echo $product->getName()
+        // echo "<pre>";
+        // var_dump($product->debug());
+        // echo "</pre>"; ?></li>
+    <?php endforeach; ?>
+</ul>

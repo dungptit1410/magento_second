@@ -1,0 +1,69 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Review\Block\Form $block */
+//phpcs:disable Generic.Files.LineLength
+?>
+
+<div class="block-content">
+<?php if ($block->getAllowWriteReviewFlag()):?>
+<form action="<?= $block->escapeUrl($block->getAction()) ?>" class="review-form" method="post" enctype='multipart/form-data' id="review-form" data-role="product-review-form" data-bind="scope: 'review-form'">
+    <?= $block->getBlockHtml('formkey') ?>
+    <?= $block->getChildHtml('form_fields_before') ?>
+    <fieldset class="fieldset review-fieldset" data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>">
+        <legend class="legend review-legend"><span><?= $block->escapeHtml(__("You're question:")) ?></span><strong><?= $block->escapeHtml($block->getProductInfo()->getName()) ?></strong></legend><br />
+        <div class="field review-field-nickname required">
+            <label for="nickname_field" class="label"><span><?= $block->escapeHtml(__('Name')) ?></span></label>
+            <div class="control">
+                <input type="text" name="name" id="nickname_field" class="input-text" data-validate="{required:true}" data-bind="value: nickname()" />
+            </div>
+        </div>
+        <div class="field review-field-email required">
+            <label for="email_field" class="label"><span><?= $block->escapeHtml(__('Email')) ?></span></label>
+            <div class="control">
+                <input type="text" name="email" id="email_field" class="input-text" data-validate="{required:true}" data-bind="value: email()" />
+            </div>
+        </div>
+        <div class="field image">
+            <label class="label" for="image"><span><?php /* @escapeNotVerified */ echo __('Image') ?></span></label>
+            <div class="control">
+                <input name="image" id="image" title="<?php /* @escapeNotVerified */ echo __('image') ?>"   type="file" />
+            </div>
+        </div>
+        <div class="field review-field-text required">
+            <label for="review_field" class="label"><span><?= $block->escapeHtml(__('Question')) ?></span></label>
+            <div class="control">
+                <textarea name="question" id="review_field" cols="5" rows="3" data-validate="{required:true}" data-bind="value: review().detail"></textarea>
+            </div>
+        </div>
+    </fieldset>
+    <div class="actions-toolbar review-form-actions">
+        <div class="primary actions-primary">
+            <button type="submit" class="action submit primary"><span><?= $block->escapeHtml(__('Submit Question')) ?></span></button>
+        </div>
+    </div>
+</form>
+<script type="text/x-magento-init">
+{
+    "[data-role=product-review-form]": {
+        "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
+    },
+    "#review-form": {
+        "Magento_Review/js/error-placement": {},
+        "Magento_Review/js/validate-review": {},
+        "Magento_Review/js/submit-review": {}
+    }
+}
+</script>
+<?php else: ?>
+    <div class="message info notlogged" id="review-form">
+        <div>
+            <?= $block->escapeHtml(__('Only registered users can write reviews. Please <a href="%1">Sign in</a> or <a href="%2">create an account</a>', $block->getLoginLink(), $block->getRegisterUrl()), ['a']) ?>
+        </div>
+    </div>
+<?php endif ?>
+</div>
+
